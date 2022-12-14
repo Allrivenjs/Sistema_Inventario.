@@ -28,16 +28,6 @@ trait AuthTrait
         return auth()->guard('api');
     }
 
-    public function createUser($data): \Illuminate\Database\Eloquent\Model|Builder
-    {
-        $names = explode(' ', $data['full_name']);
-        return User::query()->create([
-            'name' => $names[0] ?? $data['name'],
-            'lastname' => $names[1] ?? $data['lastname'],
-            'email' => $data['email'],
-        ]);
-    }
-
     public function handleLoginMethod(Request $request): array
     {
         $request->validate($this->rulesLogin());
@@ -90,6 +80,11 @@ trait AuthTrait
         return 'Logout successfully';
     }
 
+    public function handleIsLoggedMethod(Request $request)
+    {
+        return $request->user();
+    }
+
     protected function remember_me($token, Request $request): void
     {
         if ($request->remember_me) {
@@ -111,7 +106,6 @@ trait AuthTrait
         return [
             'email' => 'required|email|unique:users',
             'password' => ['required', Rules\Password::defaults()],
-            'cc' => 'required|numeric|unique:users',
         ];
     }
 }

@@ -6,24 +6,29 @@ use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class AuthController extends Controller
 {
     /**
      * @param Request $request
-     * @return \Illuminate\Http\Response|Application|ResponseFactory
+     * @return Response|Application|ResponseFactory
      */
-    public function login(Request $request): \Illuminate\Http\Response|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory{return response($this->handleLoginMethod($request));}
+    public function login(Request $request): Response|Application|ResponseFactory
+    {return response($this->handleLoginMethod($request));}
 
     /**
      * @param Request $request
-     * @return \Illuminate\Http\Response|Application|ResponseFactory
+     * @return Response|Application|ResponseFactory
      */
-    public function register(Request $request): \Illuminate\Http\Response|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory{return response($this->handleRegisterMethod($request));}
+    public function register(Request $request): Response|Application|ResponseFactory
+    {return response($this->handleRegisterMethod($request));}
 
     /**
      * @param Request $request
-     * @return Application|ResponseFactory|\Illuminate\Http\Response
+     * @return Application|ResponseFactory|Response
      */
-    public function logout(Request $request): \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response{return response($this->handleLogoutMethod($request));}
+    public function logout(Request $request): Application|ResponseFactory|Response{return response($this->handleLogoutMethod($request));}
+
+    public function isLogged(Request $request): Application|ResponseFactory|Response{return response($this->handleIsLoggedMethod($request));}
 }
