@@ -21,22 +21,22 @@ class CheckInController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
      */
     public function store(Request $request)
     {
         $validated = $request->validate([
             'supplier_id' => 'required|exists:suppliers,id',
-            'purchase_document_number' => 'required|unique:check_ins,purchase_document_number',
             'date_of_purchase_at' => 'required|date',
             'products' => 'required|array',
             'products.*.product_id' => 'required|exists:products,id',
             'products.*.price_per_unit' => 'required|numeric',
             'products.*.count' => 'required|integer',
         ]);
+        $validated['purchase_document_number'] = CheckIn::generatePurchaseDocumentNumber();
         $checkIn = CheckIn::query()->create($validated);
-        $checkIn->products()->createMany($validated['products']);
-        return response($checkIn->load('supplier', 'products'));
+        $checkIn->products()->attach($validated['products']);
+        return response($checkIn->load('supplier', 'products'), 201);
     }
 
     /**

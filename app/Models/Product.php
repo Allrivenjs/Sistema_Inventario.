@@ -16,7 +16,7 @@ class Product extends Model
         'brand',
         'sale_code',
         'barcode',
-        'group'
+        'group',
     ];
 
     protected $casts = [

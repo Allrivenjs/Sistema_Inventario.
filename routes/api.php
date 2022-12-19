@@ -1,7 +1,11 @@
 <?php
 
 use App\Http\Controllers\Auth\V1\AuthController;
+use App\Http\Controllers\CheckInController;
+use App\Http\Controllers\CheckOutController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SupplierController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,4 +26,8 @@ Route::middleware('auth:api')->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);
     Route::get('isLogged', [AuthController::class, 'isLogged']);
     Route::apiResource('clients', ClientController::class);
+    Route::apiResource('products', ProductController::class);
+    Route::apiResource('suppliers', SupplierController::class);
+    Route::apiResource('check-in', CheckInController::class);
+    Route::apiResource('check-out', CheckOutController::class);
 });

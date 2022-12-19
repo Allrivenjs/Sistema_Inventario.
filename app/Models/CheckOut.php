@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -12,16 +13,26 @@ class CheckOut extends Model
     protected $fillable = [
         'client_id',
         'sale_document_number',
-        'date_of_sale_at'
+        'sale_at'
     ];
 
     protected $casts = [
         'client_id' => 'integer',
         'sale_document_number' => 'string',
-        'date_of_sale_at' => 'datetime',
+        'sale_at' => 'datetime',
         'created_at' => 'datetime',
         'updated_at' => 'datetime'
     ];
+
+    public static function generateSaleDocumentNumber()
+    {
+        return 'S' . Carbon::now()->format('YmdHis').rand(1000, 9999);
+    }
+
+    public function getSaleAtAttribute($value): string
+    {
+        return Carbon::parse($value)->diffForHumans(['parts' => 1]);
+    }
 
     public function client(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

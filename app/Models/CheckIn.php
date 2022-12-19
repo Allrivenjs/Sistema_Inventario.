@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -22,6 +23,16 @@ class CheckIn extends Model
         'created_at' => 'datetime',
         'updated_at' => 'datetime'
     ];
+
+    public function getDateOfPurchaseAtAttribute($value): string
+    {
+        return Carbon::parse($value)->diffForHumans(['parts' => 1]);
+    }
+
+    public static function generatePurchaseDocumentNumber(): string
+    {
+        return 'P' . date('YmdHis') . rand(100,999);
+    }
 
     public function supplier(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

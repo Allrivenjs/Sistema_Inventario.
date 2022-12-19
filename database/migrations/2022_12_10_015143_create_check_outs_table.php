@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('check_outs', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(\App\Models\Client::class)->constrained();
+            $table->string('sale_document_number')->unique();
             $table->timestamp('sale_at');
             $table->timestamps();
         });
@@ -24,8 +25,8 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(\App\Models\CheckOut::class)->constrained();
             $table->foreignIdFor(\App\Models\Product::class)->constrained();
-            $table->unsignedFloat('price_per_unit');
-            $table->unsignedInteger('count');
+            $table->unsignedBigInteger('price_per_unit');
+            $table->unsignedBigInteger('count');
             $table->timestamps();
         });
     }
