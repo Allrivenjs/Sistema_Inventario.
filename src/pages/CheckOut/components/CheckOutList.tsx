@@ -1,4 +1,4 @@
-import {useGetClients} from "../hooks/useGetClients";
+import {useGetCheckOut} from "../hooks/useGetCheckOut";
 import { GridSelectionModel } from '@mui/x-data-grid';
 import {useEffect, useState} from "react";
 import {
@@ -8,14 +8,14 @@ import {
     Box,
     Button,
 } from '@mui/material';
-import {ClientsTable} from "./ClientsTable";
-import {CreateClientFormModal} from "./CreateClientFormModal";
-export const ClientList = () => {
+import {ClientsTable} from "./CheckOutTable";
+import {CreateCheckOutFormModal} from "./CreateCheckOutFormModal";
+export const CheckOutList = () => {
     const  {
         onSubmit,
         loading,
-        clients,
-    } = useGetClients();
+        CheckOut
+    } = useGetCheckOut();
     const [selectionModel, setSelectionModel] = useState<GridSelectionModel>([]);
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const [tree, setTree] = useState<boolean>(false);
@@ -33,14 +33,14 @@ export const ClientList = () => {
         >
             <Container>
                 <Typography mb={2} mt={6} variant="h3">
-                    Listado de clientes
+                    Listado de salida de productos
                 </Typography>
 
 
                 <Divider />
 
                 <ClientsTable
-                    clients={ clients! }
+                    CheckOut={ CheckOut! }
                     setSelectionModel={ setSelectionModel }
                     selectionModel={ selectionModel }
                     loading={ loading }
@@ -56,11 +56,11 @@ export const ClientList = () => {
                         variant='contained'
                         onClick={ handleOnOpenModal }
                     >
-                        Crear nuevo cliente
+                        Crear venta
                     </Button>
                 </Box>
 
-                <CreateClientFormModal
+                <CreateCheckOutFormModal
                     isOpen={ isModalOpen }
                     handleClose={ handleOnCloseModal }
                     selectionModel={ selectionModel }

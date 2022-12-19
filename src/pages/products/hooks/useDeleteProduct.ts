@@ -1,8 +1,9 @@
 import {useForm} from "react-hook-form";
 import {useState} from "react";
+import {IProducts} from "../interfaces/InterfacesProducts";
 import axiosClient from "../../../api/axiosClient";
 
-export const useDeleteClient = () => {
+export const useDeleteProduct = () => {
     const {
         register,
         handleSubmit,
@@ -18,9 +19,8 @@ export const useDeleteClient = () => {
     const [loading, setLoading] = useState(false);
     const onSubmitDelete = handleSubmit(async () => {
         setLoading(true);
-        console.log(getValues('id'))
         await axiosClient.delete(
-            `clients/${getValues('id')}`
+            `product/${getValues('id')}`
         );
         setLoading(false);
     });

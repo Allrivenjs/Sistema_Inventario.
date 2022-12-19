@@ -1,28 +1,29 @@
-import {IClients} from "../interfaces/InterfacesClients";
+import {ISuppliers} from "../interfaces/InterfacesSuppliers";
 import {useState} from "react";
 import axiosClient from "../../../api/axiosClient";
 import {useForm} from "react-hook-form";
 
 
-export const useGetClients = () => {
+export const useGetSuppliers = () => {
     const {
         register,
         handleSubmit,
         formState: { errors },
+        getValues,
     } = useForm<{ number: number }>({
         defaultValues: {
             number: 10,
         },
     });
 
-    const [clients, setClients] = useState<Array<IClients>>();
+    const [clients, setClients] = useState<Array<ISuppliers>>();
 
     const [loading, setLoading] = useState(false);
-    type GetClientsResponse = IClients[];
+    type GetSuppliersResponse = ISuppliers[];
     const onSubmit = handleSubmit(async () => {
         setLoading(true);
-        const { data } = await axiosClient.get<GetClientsResponse>(
-            `clients`
+        const { data } = await axiosClient.get<GetSuppliersResponse>(
+            `suppliers`
         );
         setClients( data );
         setLoading(false);
@@ -34,6 +35,6 @@ export const useGetClients = () => {
         onSubmit,
         setClients,
         loading,
-        clients,
+        suppliers: clients,
     };
 }

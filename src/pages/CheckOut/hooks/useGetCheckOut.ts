@@ -1,10 +1,10 @@
-import {IClients} from "../interfaces/InterfacesClients";
 import {useState} from "react";
 import axiosClient from "../../../api/axiosClient";
 import {useForm} from "react-hook-form";
+import {ICheckOut} from "../interfaces/InterfacesCheckOut";
 
 
-export const useGetClients = () => {
+export const useGetCheckOut = () => {
     const {
         register,
         handleSubmit,
@@ -15,14 +15,14 @@ export const useGetClients = () => {
         },
     });
 
-    const [clients, setClients] = useState<Array<IClients>>();
+    const [clients, setClients] = useState<Array<ICheckOut>>();
 
     const [loading, setLoading] = useState(false);
-    type GetClientsResponse = IClients[];
+    type GetCheckOutResponse = ICheckOut[];
     const onSubmit = handleSubmit(async () => {
         setLoading(true);
-        const { data } = await axiosClient.get<GetClientsResponse>(
-            `clients`
+        const { data } = await axiosClient.get<GetCheckOutResponse>(
+            `check-out`
         );
         setClients( data );
         setLoading(false);
@@ -34,6 +34,6 @@ export const useGetClients = () => {
         onSubmit,
         setClients,
         loading,
-        clients,
+        CheckOut: clients,
     };
 }

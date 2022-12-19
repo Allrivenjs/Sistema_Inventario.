@@ -1,4 +1,4 @@
-import {useGetClients} from "../hooks/useGetClients";
+import {useGetProduct} from "../hooks/useGetProduct";
 import { GridSelectionModel } from '@mui/x-data-grid';
 import {useEffect, useState} from "react";
 import {
@@ -7,15 +7,22 @@ import {
     Container,
     Box,
     Button,
+    TextField,
+    Select,
+    MenuItem,
+    capitalize,
+    SelectChangeEvent,
 } from '@mui/material';
-import {ClientsTable} from "./ClientsTable";
-import {CreateClientFormModal} from "./CreateClientFormModal";
-export const ClientList = () => {
+import {ProductsTable} from "./ProductsTable";
+import {CreateProductFormModal} from "./CreateProductFormModal";
+export const ProductList = () => {
     const  {
+        register,
         onSubmit,
+        setClients,
         loading,
-        clients,
-    } = useGetClients();
+        products,
+    } = useGetProduct();
     const [selectionModel, setSelectionModel] = useState<GridSelectionModel>([]);
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const [tree, setTree] = useState<boolean>(false);
@@ -33,14 +40,14 @@ export const ClientList = () => {
         >
             <Container>
                 <Typography mb={2} mt={6} variant="h3">
-                    Listado de clientes
+                    Listado de productos
                 </Typography>
 
 
                 <Divider />
 
-                <ClientsTable
-                    clients={ clients! }
+                <ProductsTable
+                    products={ products! }
                     setSelectionModel={ setSelectionModel }
                     selectionModel={ selectionModel }
                     loading={ loading }
@@ -56,11 +63,11 @@ export const ClientList = () => {
                         variant='contained'
                         onClick={ handleOnOpenModal }
                     >
-                        Crear nuevo cliente
+                        Crear nuevo producto
                     </Button>
                 </Box>
 
-                <CreateClientFormModal
+                <CreateProductFormModal
                     isOpen={ isModalOpen }
                     handleClose={ handleOnCloseModal }
                     selectionModel={ selectionModel }

@@ -1,14 +1,20 @@
 import {
     Box,
     Button,
+    List,
+    ListItem,
+    ListItemIcon,
+    ListItemText,
     Modal,
     TextField,
     Typography,
     Stack,
 } from '@mui/material';
+import { Memory } from '@mui/icons-material';
 import {FC} from "react";
+import {IProducts} from "../interfaces/InterfacesProducts";
 import {GridSelectionModel} from "@mui/x-data-grid";
-import {useCreateClient} from "../hooks/useCreateClient";
+import {useCreateProduct} from "../hooks/useCreateProduct";
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -29,13 +35,13 @@ export interface props {
 
 }
 
-export const CreateClientFormModal: FC<props> = ({
+export const CreateProductFormModal: FC<props> = ({
     isOpen,
     handleClose,
     selectionModel,
     setTree,
                                                  }) => {
-    const { register, onSubmit, loading } = useCreateClient(
+    const { register, onSubmit, loading } = useCreateProduct(
         selectionModel,
         setTree,
         handleClose,
@@ -50,7 +56,7 @@ export const CreateClientFormModal: FC<props> = ({
         >
             <Box sx={style}>
                 <Typography id="modal-modal-title" variant="h5" component="h2" mb={4}>
-                    Crear un nuevo cliente
+                    Crear un nuevo producto
                 </Typography>
                 <Stack spacing={2}>
                     <TextField
@@ -59,13 +65,17 @@ export const CreateClientFormModal: FC<props> = ({
                         {...register('name')}
                         InputLabelProps={{ shrink: true, required: true }}
                     />
-                    <TextField label="Apellido" {...register('lastname')} InputLabelProps={{ shrink: true, required: true }} />
-                    <TextField label="Cedula" {...register('cc')} InputLabelProps={{ shrink: true, required: true }} />
+                    <TextField label="Descripcion" multiline {...register('description')} InputLabelProps={{ shrink: true, required: true }} />
+                    {/*<TextField label="Code" {...register('code')} />*/}
+                    <TextField label="Marca" {...register('brand')} InputLabelProps={{ shrink: true, required: true }} />
+                    {/*<TextField label="Código de venta" {...register('sale_code')} />*/}
+                    {/*<TextField label="Barcode" {...register('barcode')} />*/}
+                    <TextField label="Grupo" {...register('group')} InputLabelProps={{ shrink: true, required: true }} />
                     <Button
                         onClick={onSubmit}
                         variant="contained"
                     >
-                        Crear nuevo cliente
+                        Crear nuevo producto
                     </Button>
                 </Stack>
             </Box>

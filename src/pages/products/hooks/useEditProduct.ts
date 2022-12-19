@@ -1,12 +1,12 @@
 import {GridSelectionModel} from "@mui/x-data-grid";
 import {useForm} from "react-hook-form";
-import {IClients} from "../interfaces/InterfacesClients";
+import {IProducts} from "../interfaces/InterfacesProducts";
 import {useState} from "react";
 import axiosClient from "../../../api/axiosClient";
 
-export const useEditClient = (
+export const useEditProduct = (
     selectionModel: GridSelectionModel,
-    client: IClients,
+    products: IProducts,
     setTree: any
 ) => {
     const {
@@ -15,12 +15,16 @@ export const useEditClient = (
         formState: {errors},
         getValues,
         setValue,
-    } = useForm<IClients>({
+    } = useForm<IProducts>({
         defaultValues: {
-            id: client.id,
-            name: client.name,
-            lastname: client.lastname,
-            cc: client.cc,
+            id: products.id,
+            name: products.name,
+            description: products.description,
+            code: products.code,
+            brand: products.brand,
+            sale_code: products.sale_code,
+            barcode: products.barcode,
+            group: products.group,
         }
     });
     const [loading, setLoading] = useState(false);
@@ -32,7 +36,7 @@ export const useEditClient = (
             ...getValues(),
         };
         const {data} = await axiosClient.put(
-            `clients/${getValues('id')}`, body,
+            `products/${getValues('id')}`, body,
         );
         // @ts-ignore
         setTree(prev => !prev);
@@ -43,6 +47,7 @@ export const useEditClient = (
         register,
         onSubmitUpdate,
         loading,
-        setValue
+        setValue,
+        getValues,
     };
 }

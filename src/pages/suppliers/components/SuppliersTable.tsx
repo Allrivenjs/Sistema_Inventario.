@@ -1,15 +1,16 @@
 import {DataGrid, GridColDef, GridRenderCellParams, GridSelectionModel} from "@mui/x-data-grid";
-import {IClients} from "../interfaces/InterfacesClients";
+import {ISuppliers} from "../interfaces/InterfacesSuppliers";
 import React, {FC, useRef, useState} from "react";
 import {Box, Button, CircularProgress} from "@mui/material";
-import {useDeleteClient} from "../hooks/useDeleteClient";
-import {EditClientFormModal} from "./EditClientFormModal";
+import {useDeleteSuppliers} from "../hooks/useDeleteSuppliers";
+import {EditSuppliersFormModal} from "./EditSuppliersFormModal";
 
 let setTree2: any;
 const opciones = (props: GridRenderCellParams) => {
+    // const { hasFocus, value,  } = props;
     const buttonElement = useRef<HTMLButtonElement | null>(null);
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-    const [selectionModel] = useState<GridSelectionModel>([]);
+    const [selectionModel, setSelectionModel] = useState<GridSelectionModel>([]);
     const handleOnCloseModal = () => setIsModalOpen(false);
     const handleOnOpenModal = () => setIsModalOpen(true);
     const {
@@ -17,7 +18,7 @@ const opciones = (props: GridRenderCellParams) => {
         onSubmitDelete,
         loading,
         setValue,
-    } = useDeleteClient();
+    } = useDeleteSuppliers();
     return (
         <strong>
             <Button
@@ -31,11 +32,11 @@ const opciones = (props: GridRenderCellParams) => {
             >
                 Editar
             </Button>
-            <EditClientFormModal client={props.row as IClients}
-                                 isOpen={isModalOpen}
-                                 handleClose={handleOnCloseModal}
-                                 selectionModel={selectionModel}
-                                 setTree={setTree2}
+            <EditSuppliersFormModal suppliers={props.row as ISuppliers}
+                                    isOpen={isModalOpen}
+                                    handleClose={handleOnCloseModal}
+                                    selectionModel={selectionModel}
+                                    setTree={setTree2}
             />
             <Button
                 component="button"
@@ -57,27 +58,28 @@ const opciones = (props: GridRenderCellParams) => {
 
 
 const columns: GridColDef[] = [
-    { field: 'id', headerName: '#', width: 130 },
-    { field: 'name', headerName: 'Nombre', width: 240 },
-    { field: 'lastname', headerName: 'Apellido', width: 240 },
-    { field: 'cc', headerName: 'Cedula', width: 240 },
+    { field: 'id', headerName: 'index', width: 130 },
+    { field: 'cc', headerName: 'Cedula', width: 180 },
+    { field: 'name', headerName: 'Nombre', width: 180 },
+    { field: 'address', headerName: 'Direccion', width: 180 },
+    { field: 'phone', headerName: 'Celular', width: 180 },
     {
         field: 'options',
-        headerName: 'Options',
+        headerName: 'Opciones',
         renderCell: opciones,
         width: 230,
     }
 ]
 
 interface ClientsTableProps {
-    clients: Array<IClients>;
+    clients: Array<ISuppliers>;
     selectionModel: GridSelectionModel;
     setSelectionModel: (selectionModel: GridSelectionModel) => void;
     loading: boolean;
     setTree: any;
 }
 
-export const ClientsTable: FC<ClientsTableProps> = ({
+export const SuppliersTable: FC<ClientsTableProps> = ({
     clients,
     selectionModel,
     setSelectionModel,
@@ -96,7 +98,6 @@ export const ClientsTable: FC<ClientsTableProps> = ({
                 <>
                     {clients && (
                         <DataGrid
-                            checkboxSelection
                             rows={clients}
                             columns={columns}
                             pageSize={5}

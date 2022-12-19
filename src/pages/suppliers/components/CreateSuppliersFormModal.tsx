@@ -6,10 +6,10 @@ import {
     Typography,
     Stack,
 } from '@mui/material';
-import {FC, useEffect} from "react";
-import {props} from "./CreateClientFormModal";
-import {useEditClient} from "../hooks/useEditClient";
-import {IClients} from "../interfaces/InterfacesClients";
+import {FC} from "react";
+import {GridSelectionModel} from "@mui/x-data-grid";
+import {useCreateSuppliers} from "../hooks/useCreateSuppliers";
+
 const style = {
     position: 'absolute' as 'absolute',
     top: '50%',
@@ -21,23 +21,26 @@ const style = {
     boxShadow: 24,
     p: 4,
 };
-
-interface editProps extends props {
-    client: IClients;
+export interface props {
+    isOpen: boolean;
+    handleClose: () => void;
+    selectionModel: GridSelectionModel;
     setTree: any;
+
 }
-export const EditClientFormModal: FC<editProps> = ({
+
+export const CreateSuppliersFormModal: FC<props> = ({
     isOpen,
     handleClose,
     selectionModel,
-    client,
-    setTree
-}) => {
-    const { register, onSubmitUpdate, loading, setValue } = useEditClient(
+    setTree,
+                                                 }) => {
+    const { register, onSubmit, loading } = useCreateSuppliers(
         selectionModel,
-        client,
-        setTree
+        setTree,
+        handleClose,
     );
+
     return (
         <Modal
             open={isOpen}
@@ -47,7 +50,7 @@ export const EditClientFormModal: FC<editProps> = ({
         >
             <Box sx={style}>
                 <Typography id="modal-modal-title" variant="h5" component="h2" mb={4}>
-                    Edit cliente
+                    Crear un nuevo suppliers
                 </Typography>
                 <Stack spacing={2}>
                     <TextField
@@ -56,13 +59,14 @@ export const EditClientFormModal: FC<editProps> = ({
                         {...register('name')}
                         InputLabelProps={{ shrink: true, required: true }}
                     />
-                    <TextField label="Apellido" {...register('lastname')} InputLabelProps={{ shrink: true, required: true }} />
                     <TextField label="Cedula" {...register('cc')} InputLabelProps={{ shrink: true, required: true }}/>
+                    <TextField label="direccion" {...register('address')} InputLabelProps={{ shrink: true, required: true }}/>
+                    <TextField label="celular" {...register('phone')} InputLabelProps={{ shrink: true, required: true }}/>
                     <Button
-                        onClick={onSubmitUpdate}
+                        onClick={onSubmit}
                         variant="contained"
                     >
-                        Editar cliente
+                        Crear nuevo suppliers
                     </Button>
                 </Stack>
             </Box>

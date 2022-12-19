@@ -1,11 +1,11 @@
-import {IClients} from "../interfaces/InterfacesClients";
+import {ISuppliers} from "../interfaces/InterfacesSuppliers";
 import {GridSelectionModel} from "@mui/x-data-grid";
 import {useForm} from "react-hook-form";
 
 import {useState} from "react";
 import axiosClient from "../../../api/axiosClient";
 
-export const useCreateClient = (
+export const useCreateSuppliers = (
     selectionModel: GridSelectionModel,
     setTree: any,
     handleClose: any,
@@ -15,11 +15,12 @@ export const useCreateClient = (
         handleSubmit,
         formState: {errors},
         getValues,
-    } = useForm<IClients>({
+    } = useForm<ISuppliers>({
         defaultValues: {
             name: '',
-            lastname: '',
-            cc: 0,
+            address: '',
+            phone: '',
+            cc: '',
         }
     });
     const [loading, setLoading] = useState(false);
@@ -29,8 +30,9 @@ export const useCreateClient = (
         const body = {
             ...getValues(),
         };
+        console.log(body);
         const {data} = await axiosClient.post(
-            `clients`, body,
+            `suppliers`, body,
         );
         // @ts-ignore
         setTree(prev => !prev);

@@ -7,9 +7,9 @@ import {
     Stack,
 } from '@mui/material';
 import {FC, useEffect} from "react";
-import {props} from "./CreateClientFormModal";
-import {useEditClient} from "../hooks/useEditClient";
-import {IClients} from "../interfaces/InterfacesClients";
+import {props} from "./CreateSuppliersFormModal";
+import {useEditSuppliers} from "../hooks/useEditSuppliers";
+import {ISuppliers} from "../interfaces/InterfacesSuppliers";
 const style = {
     position: 'absolute' as 'absolute',
     top: '50%',
@@ -23,19 +23,19 @@ const style = {
 };
 
 interface editProps extends props {
-    client: IClients;
+    suppliers: ISuppliers;
     setTree: any;
 }
-export const EditClientFormModal: FC<editProps> = ({
+export const EditSuppliersFormModal: FC<editProps> = ({
     isOpen,
     handleClose,
     selectionModel,
-    client,
+    suppliers,
     setTree
 }) => {
-    const { register, onSubmitUpdate, loading, setValue } = useEditClient(
+    const { register, onSubmitUpdate, loading, setValue } = useEditSuppliers(
         selectionModel,
-        client,
+        suppliers,
         setTree
     );
     return (
@@ -47,7 +47,7 @@ export const EditClientFormModal: FC<editProps> = ({
         >
             <Box sx={style}>
                 <Typography id="modal-modal-title" variant="h5" component="h2" mb={4}>
-                    Edit cliente
+                    Edit suppliers
                 </Typography>
                 <Stack spacing={2}>
                     <TextField
@@ -56,13 +56,14 @@ export const EditClientFormModal: FC<editProps> = ({
                         {...register('name')}
                         InputLabelProps={{ shrink: true, required: true }}
                     />
-                    <TextField label="Apellido" {...register('lastname')} InputLabelProps={{ shrink: true, required: true }} />
                     <TextField label="Cedula" {...register('cc')} InputLabelProps={{ shrink: true, required: true }}/>
+                    <TextField label="direccion" {...register('address')} InputLabelProps={{ shrink: true, required: true }}/>
+                    <TextField label="celular" {...register('phone')} InputLabelProps={{ shrink: true, required: true }}/>
                     <Button
                         onClick={onSubmitUpdate}
                         variant="contained"
                     >
-                        Editar cliente
+                        Editar suppliers
                     </Button>
                 </Stack>
             </Box>

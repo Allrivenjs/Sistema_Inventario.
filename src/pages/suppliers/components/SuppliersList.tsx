@@ -1,4 +1,4 @@
-import {useGetClients} from "../hooks/useGetClients";
+import {useGetSuppliers} from "../hooks/useGetSuppliers";
 import { GridSelectionModel } from '@mui/x-data-grid';
 import {useEffect, useState} from "react";
 import {
@@ -8,14 +8,16 @@ import {
     Box,
     Button,
 } from '@mui/material';
-import {ClientsTable} from "./ClientsTable";
-import {CreateClientFormModal} from "./CreateClientFormModal";
-export const ClientList = () => {
+import {SuppliersTable} from "./SuppliersTable";
+import {CreateSuppliersFormModal} from "./CreateSuppliersFormModal";
+export const SuppliersList = () => {
     const  {
+        register,
         onSubmit,
+        setClients,
         loading,
-        clients,
-    } = useGetClients();
+        suppliers,
+    } = useGetSuppliers();
     const [selectionModel, setSelectionModel] = useState<GridSelectionModel>([]);
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const [tree, setTree] = useState<boolean>(false);
@@ -33,14 +35,14 @@ export const ClientList = () => {
         >
             <Container>
                 <Typography mb={2} mt={6} variant="h3">
-                    Listado de clientes
+                    Listado de proveedores
                 </Typography>
 
 
                 <Divider />
 
-                <ClientsTable
-                    clients={ clients! }
+                <SuppliersTable
+                    clients={ suppliers! }
                     setSelectionModel={ setSelectionModel }
                     selectionModel={ selectionModel }
                     loading={ loading }
@@ -56,11 +58,11 @@ export const ClientList = () => {
                         variant='contained'
                         onClick={ handleOnOpenModal }
                     >
-                        Crear nuevo cliente
+                        Crear nuevo suppliers
                     </Button>
                 </Box>
 
-                <CreateClientFormModal
+                <CreateSuppliersFormModal
                     isOpen={ isModalOpen }
                     handleClose={ handleOnCloseModal }
                     selectionModel={ selectionModel }

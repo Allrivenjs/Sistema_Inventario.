@@ -1,11 +1,11 @@
-import {IClients} from "../interfaces/InterfacesClients";
+import {ICheckOut} from "../interfaces/InterfacesCheckOut";
 import {GridSelectionModel} from "@mui/x-data-grid";
 import {useForm} from "react-hook-form";
 
 import {useState} from "react";
 import axiosClient from "../../../api/axiosClient";
 
-export const useCreateClient = (
+export const useCreateCheckOut = (
     selectionModel: GridSelectionModel,
     setTree: any,
     handleClose: any,
@@ -15,11 +15,14 @@ export const useCreateClient = (
         handleSubmit,
         formState: {errors},
         getValues,
-    } = useForm<IClients>({
+        setValue
+    } = useForm<ICheckOut>({
         defaultValues: {
-            name: '',
-            lastname: '',
-            cc: 0,
+            id: 0,
+            sale_document_number: "",
+            sale_at: "",
+            client_id: 0,
+            products: [],
         }
     });
     const [loading, setLoading] = useState(false);
@@ -30,7 +33,7 @@ export const useCreateClient = (
             ...getValues(),
         };
         const {data} = await axiosClient.post(
-            `clients`, body,
+            `check-out`, body,
         );
         // @ts-ignore
         setTree(prev => !prev);
@@ -42,6 +45,7 @@ export const useCreateClient = (
         register,
         onSubmit,
         loading,
+        setValue
     };
 
 }
