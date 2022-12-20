@@ -25,8 +25,8 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(\App\Models\Product::class)->constrained();
             $table->foreignIdFor(\App\Models\CheckIn::class)->constrained();
-            $table->unsignedFloat('price_per_unit');
-            $table->unsignedInteger('count');
+            $table->unsignedBigInteger('price_per_unit');
+            $table->unsignedBigInteger('count');
             $table->timestamps();
         });
 

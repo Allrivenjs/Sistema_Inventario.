@@ -55,9 +55,9 @@ class SupplierController extends Controller
     public function update(Request $request, Supplier $supplier): \Illuminate\Http\Response
     {
         $validate = $request->validate([
-            'cc' => 'required|unique:suppliers',
+            'cc' => 'required|unique:suppliers,cc,'.$supplier->id,
             'name' => 'required',
-            'phone' => 'required|unique:suppliers',
+            'phone' => 'required|unique:suppliers,phone,'.$supplier->id,
             'address' => 'required'
         ]);
         $supplier->update($validate);

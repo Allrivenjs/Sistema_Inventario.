@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Picqer\Barcode\Barcode;
+use Picqer\Barcode\BarcodeGeneratorPNG;
 
 class ProductController extends Controller
 {
@@ -27,14 +30,14 @@ class ProductController extends Controller
     {
         $validate = $request->validate([
             'name' => 'required',
-            'price' => 'required',
             'description' => 'required',
-            'code' => 'required|unique:products',
             'brand' => 'required',
-            'sale_code' => 'required',
-            'barcode' => 'required',
             'group' => 'required'
         ]);
+        $validate['code'] = Str::uuid();
+        $validate['sale_code'] = Str::uuid();
+        $generator = new BarcodeGeneratorPNG();
+        $validate['barcode'] = 'data:image/png;base64,'. base64_encode($generator->getBarcode($validate['code'],  $generator::TYPE_CODE_128, 3, 50, [28, 28, 28]));
         return response(Product::query()->create($validate));
     }
 
@@ -60,12 +63,8 @@ class ProductController extends Controller
     {
         $validate = $request->validate([
             'name' => 'required',
-            'price' => 'required',
             'description' => 'required',
-            'code' => 'required|unique:products,code,'.$product->id,
             'brand' => 'required',
-            'sale_code' => 'required',
-            'barcode' => 'required',
             'group' => 'required'
         ]);
         $product->update($validate);

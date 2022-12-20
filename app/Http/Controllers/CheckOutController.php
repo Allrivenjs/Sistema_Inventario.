@@ -26,12 +26,17 @@ class CheckOutController extends Controller
     public function store(Request $request)
     {
         $validate = $request->validate([
+            'sale_at' => 'required|date',
             'client_id' => 'required|integer',
             'products' => 'required|array',
-            'products.*.id' => 'required|integer',
+            'products.*.product_id' => 'required|integer',
             'products.*.price_per_unit' => 'required|numeric',
             'products.*.count' => 'required|integer'
         ]);
+        $validate['sale_document_number'] = CheckOut::generateSaleDocumentNumber();
+        $checkOut = CheckOut::query()->create($validate);
+        $checkOut->products()->attach($validate['products']);
+        return response($checkOut->load(['client', 'products']), 201);
     }
 
     /**

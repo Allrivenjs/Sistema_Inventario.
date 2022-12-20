@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('description');
             $table->string('brand');
             $table->string('sale_code');
-            $table->string('barcode');
+            $table->longText('barcode');
             $table->string('group');
             $table->timestamps();
         });
