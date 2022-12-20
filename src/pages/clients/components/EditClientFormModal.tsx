@@ -24,7 +24,7 @@ const style = {
 
 interface editProps extends props {
     client: IClients;
-    setTree: any;
+    setTree: any
 }
 export const EditClientFormModal: FC<editProps> = ({
     isOpen,
@@ -52,12 +52,12 @@ export const EditClientFormModal: FC<editProps> = ({
                 <Stack spacing={2}>
                     <TextField
                         multiline
-                        label="Nombre"
+                        label="Nombre del catalogo"
                         {...register('name')}
-                        InputLabelProps={{ shrink: true, required: true }}
+
                     />
-                    <TextField label="Apellido" {...register('lastname')} InputLabelProps={{ shrink: true, required: true }} />
-                    <TextField label="Cedula" {...register('cc')} InputLabelProps={{ shrink: true, required: true }}/>
+                    <TextField label="lastname" {...register('lastname')} />
+                    <TextField label="cc" {...register('cc')} />
                     <Button
                         onClick={onSubmitUpdate}
                         variant="contained"

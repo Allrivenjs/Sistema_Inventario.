@@ -9,6 +9,7 @@ export const useGetClients = () => {
         register,
         handleSubmit,
         formState: { errors },
+        getValues,
     } = useForm<{ number: number }>({
         defaultValues: {
             number: 10,

@@ -1,12 +1,18 @@
 import {
     Box,
     Button,
+    List,
+    ListItem,
+    ListItemIcon,
+    ListItemText,
     Modal,
     TextField,
     Typography,
     Stack,
 } from '@mui/material';
+import { Memory } from '@mui/icons-material';
 import {FC} from "react";
+import {IClients} from "../interfaces/InterfacesClients";
 import {GridSelectionModel} from "@mui/x-data-grid";
 import {useCreateClient} from "../hooks/useCreateClient";
 
@@ -25,20 +31,15 @@ export interface props {
     isOpen: boolean;
     handleClose: () => void;
     selectionModel: GridSelectionModel;
-    setTree: any;
-
 }
 
 export const CreateClientFormModal: FC<props> = ({
     isOpen,
     handleClose,
     selectionModel,
-    setTree,
                                                  }) => {
     const { register, onSubmit, loading } = useCreateClient(
-        selectionModel,
-        setTree,
-        handleClose,
+        selectionModel
     );
 
     return (
@@ -55,12 +56,11 @@ export const CreateClientFormModal: FC<props> = ({
                 <Stack spacing={2}>
                     <TextField
                         multiline
-                        label="Nombre"
+                        label="Nombre del catalogo"
                         {...register('name')}
-                        InputLabelProps={{ shrink: true, required: true }}
                     />
-                    <TextField label="Apellido" {...register('lastname')} InputLabelProps={{ shrink: true, required: true }} />
-                    <TextField label="Cedula" {...register('cc')} InputLabelProps={{ shrink: true, required: true }} />
+                    <TextField label="lastname" {...register('lastname')} />
+                    <TextField label="cc" {...register('cc')} />
                     <Button
                         onClick={onSubmit}
                         variant="contained"

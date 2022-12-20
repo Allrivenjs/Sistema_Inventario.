@@ -7,9 +7,10 @@ import {EditClientFormModal} from "./EditClientFormModal";
 
 let setTree2: any;
 const opciones = (props: GridRenderCellParams) => {
+    // const { hasFocus, value,  } = props;
     const buttonElement = useRef<HTMLButtonElement | null>(null);
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-    const [selectionModel] = useState<GridSelectionModel>([]);
+    const [selectionModel, setSelectionModel] = useState<GridSelectionModel>([]);
     const handleOnCloseModal = () => setIsModalOpen(false);
     const handleOnOpenModal = () => setIsModalOpen(true);
     const {
@@ -57,10 +58,10 @@ const opciones = (props: GridRenderCellParams) => {
 
 
 const columns: GridColDef[] = [
-    { field: 'id', headerName: '#', width: 130 },
-    { field: 'name', headerName: 'Nombre', width: 240 },
-    { field: 'lastname', headerName: 'Apellido', width: 240 },
-    { field: 'cc', headerName: 'Cedula', width: 240 },
+    { field: 'id', headerName: 'index', width: 130 },
+    { field: 'name', headerName: 'Name', width: 240 },
+    { field: 'lastname', headerName: 'Lastname', width: 240 },
+    { field: 'cc', headerName: 'CC', width: 240 },
     {
         field: 'options',
         headerName: 'Options',

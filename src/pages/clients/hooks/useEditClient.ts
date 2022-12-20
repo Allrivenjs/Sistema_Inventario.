@@ -3,6 +3,7 @@ import {useForm} from "react-hook-form";
 import {IClients} from "../interfaces/InterfacesClients";
 import {useState} from "react";
 import axiosClient from "../../../api/axiosClient";
+import {useGetClients} from "./useGetClients";
 
 export const useEditClient = (
     selectionModel: GridSelectionModel,
@@ -34,7 +35,7 @@ export const useEditClient = (
         const {data} = await axiosClient.put(
             `clients/${getValues('id')}`, body,
         );
-        // @ts-ignore
+        console.log(data);
         setTree(prev => !prev);
         setLoading(false);
     });

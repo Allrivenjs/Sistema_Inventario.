@@ -7,12 +7,19 @@ import {
     Container,
     Box,
     Button,
+    TextField,
+    Select,
+    MenuItem,
+    capitalize,
+    SelectChangeEvent,
 } from '@mui/material';
 import {ClientsTable} from "./ClientsTable";
 import {CreateClientFormModal} from "./CreateClientFormModal";
 export const ClientList = () => {
     const  {
+        register,
         onSubmit,
+        setClients,
         loading,
         clients,
     } = useGetClients();
@@ -29,7 +36,7 @@ export const ClientList = () => {
     return (
         <Box
             width='100%'
-            height='100%'
+            height='100vh'
         >
             <Container>
                 <Typography mb={2} mt={6} variant="h3">
@@ -64,7 +71,6 @@ export const ClientList = () => {
                     isOpen={ isModalOpen }
                     handleClose={ handleOnCloseModal }
                     selectionModel={ selectionModel }
-                    setTree={ setTree }
                 />
 
             </Container>

@@ -5,7 +5,7 @@ function Index() {
 
   return (
       <>
-           
+             App
       </>
   )
 }

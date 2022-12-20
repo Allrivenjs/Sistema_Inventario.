@@ -1,5 +1,6 @@
 import {useForm} from "react-hook-form";
 import {useState} from "react";
+import {IClients} from "../interfaces/InterfacesClients";
 import axiosClient from "../../../api/axiosClient";
 
 export const useDeleteClient = () => {

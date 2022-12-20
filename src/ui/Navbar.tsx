@@ -6,16 +6,9 @@ export const Navbar = () => {
     return (
         <AppBar position="static">
             <Toolbar>
-                <Link
-                    sx={{ flexGrow: 1}}
-                    variant='button'
-                    component={ RouterLink }
-                    to='/'
-                >
-                    <Typography variant="h6" component="div" sx={{ color: '#000000' }}>
-                        Sistema de inventario
-                    </Typography>
-                </Link>
+                <Typography variant="h6" component="div" sx={{ flexGrow: 1, color: '#000000' }}>
+                    Sistema de inventario
+                </Typography>
 
                 <Stack
                     direction='row'
@@ -32,33 +25,9 @@ export const Navbar = () => {
                     <Link
                         variant='button'
                         component={ RouterLink }
-                        to='/products'
+                        to='/groups'
                     >
-                        productos
-                    </Link>
-
-                    <Link
-                        variant='button'
-                        component={ RouterLink }
-                        to='/suppliers'
-                    >
-                        proveedores
-                    </Link>
-
-                    <Link
-                        variant='button'
-                        component={ RouterLink }
-                        to='/check-in'
-                    >
-                        Entradas
-                    </Link>
-
-                    <Link
-                        variant='button'
-                        component={ RouterLink }
-                        to='/check-out'
-                    >
-                        Ventas
+                        Groups
                     </Link>
 
                 </Stack>

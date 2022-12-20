@@ -6,9 +6,7 @@ import {useState} from "react";
 import axiosClient from "../../../api/axiosClient";
 
 export const useCreateClient = (
-    selectionModel: GridSelectionModel,
-    setTree: any,
-    handleClose: any,
+    selectionModel: GridSelectionModel
 ) => {
     const {
         register,
@@ -32,9 +30,7 @@ export const useCreateClient = (
         const {data} = await axiosClient.post(
             `clients`, body,
         );
-        // @ts-ignore
-        setTree(prev => !prev);
-        handleClose();
+        console.log(data);
         setLoading(false);
     });
 

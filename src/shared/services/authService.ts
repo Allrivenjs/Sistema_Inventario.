@@ -20,6 +20,7 @@ export const loginRequest = async (user: LoginUserState) => {
 		const res = await axiosClient.post(`/login`, user,{
 			headers: config.headers,
 		});
+		console.log(res);
 		cookies.set('token', res.data.access_token, { path: '/', expires: new Date(res.data.expires_at) });
 		return res.data;
 	} catch (err: any) {
